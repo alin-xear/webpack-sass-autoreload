@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+$defFont: 14px/1.5 'Poppins', sans-serif;
+
+$black: #212324;
+$brown: #dcab56;
+$grey: #f6f6f6;
+$greyText: #b0b4b5;
+$formGreyText: #b59d91;
+
+/*"@include pseudo" for defaults*/
+/*"@include pseud($pos:relative): for single atribute change*/
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+/*
+input{
+  @include input-placeholder{
+    color: black;
+  }
+  }*/
+  @mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+  }
+
+/*Media quries mixin 
+@include mq("lg") ,@include mq("sm",max), @include mq(1275,max) 
+argumentul 2 e optional, by default e min (dimensiunea precizata va fi minimul de la care se va lua in considerare css-ul)
+*/
+
+$breakpoints:(
+  "xs":  480px,
+  "sm":  767px,
+  "md":  960px,
+  "lg":  1200px,
+  "xlg": 1440px,
+  "xxlg": 1890px
+  );  
+
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+
+/*min amd max mixin*/
+@mixin qm($min, $max) {
+  $minWidth: map_get($breakpoints, $min);
+  $maxWidth: map_get($breakpoints, $max);
+  @media only screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @content;
+  }
+}

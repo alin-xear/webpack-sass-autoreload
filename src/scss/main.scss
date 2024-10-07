@@ -1,0 +1,9 @@
+// Import all style files to be compiled       |
+// into a CSS stylesheet                       |
+// - - - - - - - - - - - - - - - - - - - - - - |
+
+@import "./variables";
+
+.gradientBg1 {
+  background-image: url("../images/bg-gradient-1.png");
+}
